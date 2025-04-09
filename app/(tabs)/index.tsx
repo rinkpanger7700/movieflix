@@ -1,4 +1,11 @@
-import { Text, View, Image, ScrollView, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+  FlatList,
+} from "react-native";
 import { Link } from "expo-router";
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
@@ -41,7 +48,15 @@ export default function Index() {
               placeholder="Search for a movie, series, or episode"
             />
             <>
-              <Text className="text-lg text-white font-bold mt-5 mb-3">Latest Movies</Text>
+              <Text className="text-lg text-white font-bold mt-5 mb-3">
+                Latest Movies
+              </Text>
+              <FlatList
+                data={movies}
+                renderItem={({ item }) => (
+                  <Text className="text-white text-sm">{item.title}</Text>
+                )}
+              />
             </>
           </View>
         )}
