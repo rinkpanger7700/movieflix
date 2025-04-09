@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { Link } from "expo-router";
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
 import SearchBar from "@/components/SearchBar";
 import { useRouter } from "expo-router";
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
+import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function Index() {
             className="mt-10 self-center"
           />
         ) : moviesError ? (
-          <Text>Error: {moviesError.message}</Text>
+          <Text>Error: {moviesError}</Text>
         ) : (
           <View className="flex-1 mt-5">
             <SearchBar
@@ -54,8 +54,20 @@ export default function Index() {
               <FlatList
                 data={movies}
                 renderItem={({ item }) => (
-                  <Text className="text-white text-sm">{item.title}</Text>
+                  <MovieCard
+                  {...item}
+                  />
                 )}
+                keyExtractor={(item) => item.id.toString()}
+                numColumns={3}
+                columnWrapperStyle={{
+                  justifyContent: "flex-start",
+                  gap: 20,
+                  paddingRight: 5,
+                  marginBottom: 10,
+                }}
+                className="mt-2 pb-32"
+                scrollEnabled={false}
               />
             </>
           </View>
